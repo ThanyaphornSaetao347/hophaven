@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HopHaven</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="logo">HopHaven</div>
+    <select class="currencySelector" id="currencySelector">
+      <!-- Currency options will be dynamically populated here -->
+    </select>
+  </header>
+
+  <div class="filter-bar">
+    <input type="text" id="filter-name" placeholder="Search by name">
+    <select id="filter-type">
+      <option value="all">All</option>
+      <option value="ale">Ale</option>
+      <option value="stouts">Stouts</option>
+    </select>
+    <select id="filter-rating">
+      <option value="all">Rating</option>
+      <option value="1">1 Star</option>
+      <option value="2">2 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="5">5 Stars</option>
+    </select>
+    <button id="search-btn">Search</button>
+  </div>
+
+  <div class="beer-grid" id="beer-grid">
+    <!-- Beer cards will be dynamically generated here -->
+  </div>
+
+  <div class="pagination">
+    <button id="prev-page">Previous</button>
+    <button id="next-page">Next</button>
+  </div>
+</body>
+</html>

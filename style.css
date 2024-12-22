@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+    font-family: "Abel", serif;
+    margin-left: 5em;
+    margin-right: 5em;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-left: 10rem;
+    margin-right: 10rem;
+    border-radius: 10px;
+}
+
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: #053b75;
+    text-transform: uppercase;
+    font-family: "Bebas Neue", serif;
+    letter-spacing: 2px;
+}
+
+.currencySelector {
+    background: #fff;
+    color: #333;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 15px;
+    border: 3px solid #0555ab;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+.currencySelector:hover {
+    background-color: #053b75;
+    color: #fff;
+}
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+.filter-bar input, .filter-bar select {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.filter-bar input:focus, .filter-bar select:focus {
+    border-color: #053b75;
+    outline: none;
+}
+
+.filter-bar button {
+    flex: 0.5;
+    background-color: #053b75;
+    color: #fff;
+    border: 1px solid #0555ab;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-bar button:hover {
+    background-color: #046df8;
+}
+
+.beer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.beer-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;
+    background: #f9f9f9;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.beer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.beer-card img {
+    max-width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.beer-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.beer-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination button {
+    padding: 8px 15px;
+    border: 3px solid #0555ab;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.pagination button:hover {
+    background-color: #053b75;
+    color: #fff;
+}
+
+.rating {
+    display: flex; /* ใช้ flexbox เพื่อจัดเรียงเนื้อหาภายในในแนวนอน */
+    align-items: center; /* จัดให้อยู่ในแนวเดียวกัน */
+    justify-content: center; /* จัดกลางเนื้อหา */
+    gap: 10px; /* ช่องว่างระหว่างค่าเฉลี่ยและดาว */
+}
+
+.rating-number {
+    font-size: 16px; /* ขนาดของตัวเลข */
+    color: #333; /* สีของตัวเลข */
+}
+
+
+.rating p {
+    margin: 0;
+    margin-left: 15px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.stars {
+    display: flex;
+    gap: 2px;
+    justify-content: center; /* จัดกลางดาวในแนวนอน */
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    position: relative;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
+
+.star.full {
+    background-color: #ffc107;
+}
+
+.star.partial {
+    background-color: #ccc;
+    overflow: hidden;
+}
+
+.star.partial::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--partial-width, 50%);
+    height: 100%;
+    background-color: #ffc107;
+}
+
+.star.empty {
+    background-color: #ccc;
+}
+
+.reviews {
+    margin-left: 10px;
+    color: #666;
+}
+
+/* For smaller screens (tablets and below) */
+@media (max-width: 1200px) {
+    header {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .beer-grid {
+        grid-template-columns: repeat(3, 1fr); /* 4 columns for medium screens */
+    }
+    .rating {
+        flex-direction: column; /* Stack rating and reviews vertically */
+        align-items: center; /* Align items to the center horizontally */
+        justify-content: center; /* Center vertically */
+        gap: 5px; /* Reduce gap between stars and review count */
+    }
+
+    .stars {
+        gap: 3px; /* Reduce gap between stars */
+    }
+
+    .rating-number {
+        font-size: 12px; /* Reduce font size of rating number */
+    }
+
+    .pagination {
+        flex-direction: column;
+    }
+    .filter-bar {
+        padding: 8px; /* Reduce padding */
+        gap: 5px; /* Reduce gap between elements */
+        max-width: 600px; /* Make filter bar smaller */
+    }
+
+    .filter-bar input, .filter-bar select, .filter-bar button {
+        font-size: 12px; /* Reduce font size */
+        padding: 8px; /* Reduce padding */
+    }
+
+    .filter-bar button {
+        flex: 0.4; /* Make the button smaller */
+    }
+}
+
+/* For mobile screens */
+@media (max-width: 768px) {
+    header {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .beer-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+    }
+
+    .beer-card {
+        padding: 10px;
+    }
+
+    .rating {
+        flex-direction: column; /* Stack rating and reviews vertically */
+        align-items: center; /* Align items to the center horizontally */
+        justify-content: center; /* Center vertically */
+        gap: 5px; /* Reduce gap between stars and review count */
+    }
+
+    .stars {
+        gap: 3px; /* Reduce gap between stars */
+    }
+
+    .rating-number {
+        font-size: 12px; /* Reduce font size of rating number */
+    }
+
+    .pagination {
+        flex-direction: column;
+    }
+    .filter-bar {
+        padding: 8px; /* Reduce padding */
+        gap: 5px; /* Reduce gap between elements */
+        max-width: 600px; /* Make filter bar smaller */
+    }
+
+    .filter-bar input, .filter-bar select, .filter-bar button {
+        font-size: 12px; /* Reduce font size */
+        padding: 8px; /* Reduce padding */
+    }
+
+    .filter-bar button {
+        flex: 0.4; /* Make the button smaller */
+    }
+}
+
+/* For very small screens (e.g., mobile phones in portrait mode) */
+@media (max-width: 480px) {
+    .beer-grid {
+        grid-template-columns: 1fr; /* 1 column for very small screens */
+    }
+
+    .rating {
+        font-size: 12px; /* Reduce font size for rating */
+    }
+    .filter-bar {
+        padding: 6px; /* Further reduce padding */
+        gap: 3px; /* Reduce gap further */
+        max-width: 100%; /* Make filter bar full width */
+    }
+
+    .filter-bar input, .filter-bar select, .filter-bar button {
+        font-size: 10px; /* Reduce font size even more */
+        padding: 6px; /* Reduce padding */
+    }
+
+    .filter-bar button {
+        flex: 0.3; /* Make button even smaller */
+    }
+}
