@@ -1,14 +1,16 @@
 const aleAPI = 'https://api.sampleapis.com/beers/ale';
 const stoutsAPI = 'https://api.sampleapis.com/beers/stouts';
 const currencyAPI = 'https://api.frankfurter.dev/v1/latest?base=EUR';
+// aleAPI และ stoutsAPI ใช้สำหรับดึงข้อมูลเบียร์ประเภท Ale และ Stouts
+// currencyAPI ใช้สำหรับดึงข้อมูลอัตราแลกเปลี่ยนสกุลเงิน
 
-const beerGrid = document.getElementById('beer-grid');
-const currencySelector = document.getElementById('currencySelector');
+const beerGrid = document.getElementById('beer-grid');// beerGrid: ใช้แสดงรายการเบียร์
+const currencySelector = document.getElementById('currencySelector');// currencySelector: ใช้เลือกสกุลเงิน
 
-let beers = [];
-let currentPage = 1;
-const itemsPerPage = 30;
-let exchangeRates = {};
+let beers = [];// beers: เก็บข้อมูลเบียร์ทั้งหมด
+let currentPage = 1;// currentPage: หน้าปัจจุบัน
+const itemsPerPage = 30;// itemsPerPage: จำนวนเบียร์ที่แสดงต่อหน้า
+let exchangeRates = {};// exchangeRates: เก็บอัตราแลกเปลี่ยนสกุลเงิน
 
 async function fetchBeers(filterType = 'all') {
   beers = [];
@@ -25,9 +27,9 @@ async function fetchBeers(filterType = 'all') {
     }
 
     // Shuffle the beers to display a random selection
-    shuffleBeers();
+    shuffleBeers();// สุ่มลำดับเบียร์
 
-    displayBeers();
+    displayBeers();// แสดงผลเบียร์
   } catch (error) {
     console.error('Error fetching beers:', error);
     beerGrid.innerHTML = '<p>Error loading beers. Please try again later.</p>';
@@ -39,6 +41,7 @@ function shuffleBeers() {
     const j = Math.floor(Math.random() * (i + 1));
     [beers[i], beers[j]] = [beers[j], beers[i]]; // Swap elements
   }
+  // ใช้อัลกอริทึม Fisher-Yates Shuffle เพื่อสุ่มลำดับของข้อมูลใน beers
 }
 
 function displayBeers() {
@@ -93,17 +96,23 @@ function convertPrice(price) {
   const selectedCurrency = currencySelector.value;
   const rate = exchangeRates[selectedCurrency] || 1;
   return (priceFloat * rate).toFixed(2);
+  // แปลงราคาจากข้อมูลเบียร์ให้เป็นสกุลเงินที่เลือกโดยใช้อัตราแลกเปลี่ยน
 }
 
-document.getElementById('search-btn').addEventListener('click', async () => {
+document.getElementById('search-btn').addEventListener('click', async () => { // addEventListener เพื่อกำหนดให้ฟังก์ชันทำงานเมื่อผู้ใช้งานคลิกปุ่มค้นหา
   const nameFilter = document.getElementById('filter-name').value.toLowerCase();
+  // อ่านค่าชื่อที่ผู้ใช้กรอกในช่องค้นหา (filter-name) และแปลงเป็นตัวพิมพ์เล็กด้วย .toLowerCase() เพื่อให้การค้นหาไม่สนใจตัวพิมพ์เล็กหรือใหญ่
   const typeFilter = document.getElementById('filter-type').value;
+  // อ่านค่าประเภทเบียร์ที่เลือก (filter-type) เช่น ale, stouts หรือ all
   const ratingFilter = document.getElementById('filter-rating').value;
+  // อ่านค่าคะแนนที่เลือก (filter-rating) เช่น all, 1, 2, ..., 5
 
-  await fetchBeers(typeFilter);
+  await fetchBeers(typeFilter); // เรียกฟังก์ชัน fetchBeers(typeFilter) เพื่อดึงข้อมูลเบียร์ตามประเภทที่เลือก
+// ใช้ await เพื่อรอให้ข้อมูลถูกดึงมาเสร็จก่อนดำเนินการต่อ
 
   beers = beers.filter(beer => {
-    const matchesName = beer.name.toLowerCase().includes(nameFilter);
+    const matchesName = beer.name.toLowerCase().includes(nameFilter); 
+    // ใช้ .includes() เพื่อตรวจสอบว่าชื่อเบียร์ (beer.name) มีคำที่ผู้ใช้กรอกอยู่หรือไม่ (ไม่สนใจตัวพิมพ์เล็กหรือใหญ่)
     let matchesRating = true;
     if (ratingFilter !== 'all') {
       const rating = beer.rating?.average || 0;
@@ -114,24 +123,30 @@ document.getElementById('search-btn').addEventListener('click', async () => {
         matchesRating = rating >= ratingValue && rating < ratingValue + 1;
       }
     }
-    return matchesName && matchesRating;
+    return matchesName && matchesRating; // คืนค่าข้อมูลเบียร์ที่ตรงกับทั้งชื่อและคะแนน
   });
 
-  currentPage = 1;
-  displayBeers();
+  currentPage = 1; // ตั้งค่าหน้าปัจจุบัน (currentPage) เป็นหน้าแรก (1)
+  displayBeers(); // เรียกฟังก์ชัน displayBeers() เพื่อแสดงผลเบียร์ที่ผ่านการกรอง
 });
 
 document.getElementById('prev-page').addEventListener('click', () => {
-  if (currentPage > 1) {
-    currentPage--;
-    displayBeers();
+  if (currentPage > 1) {// ตรวจสอบเมื่อกดปุ่มก่อนหน้าว่าหมายเลขหน้าปัจจุบัน > 1 หรือไม่ ถ้ามากกว่า 1 จะทำการลดค่าของ current page ลง 1 เพื่อเปลี่ยนไปยังหน้าก่อนหน้า
+    currentPage--;// หาก currentPage เท่ากับ 1 จะไม่ทำอะไร
+    displayBeers(); // เรียกใช้ฟังก์ชันdisplayBeers() เพื่อแสดงผลข้อมูลเบียร์ของหน้าก่อนหน้า
   }
 });
 
 document.getElementById('next-page').addEventListener('click', () => {
-  if (currentPage * itemsPerPage < beers.length) {
+  if (currentPage * itemsPerPage < beers.length) { 
+    // currentPage คือหมายเลขหน้าปัจจุบัน itemsPerPage คือจำนวนข้อมูลที่แสดงต่อหน้า (เช่น 30 รายการ) 
+    // beers.length คือจำนวนข้อมูลเบียร์ทั้งหมด 
+    // เงื่อนไขนี้ตรวจสอบว่ามีข้อมูลที่ยังไม่ได้แสดงในหน้าถัดไปหรือไม่
     currentPage++;
     displayBeers();
+    // หากเงื่อนไขเป็นจริง:
+    // เพิ่มค่าของ currentPage ขึ้น 1 (เปลี่ยนไปยังหน้าถัดไป)
+    // เรียกฟังก์ชัน displayBeers() เพื่อแสดงผลข้อมูลเบียร์ของหน้าถัดไป
   }
 });
 
@@ -156,6 +171,9 @@ async function fetchCurrencyRates() {
     console.error('Error fetching currency rates:', error);
   }
 }
+// ดึงข้อมูลอัตราแลกเปลี่ยนจาก API
+// อัปเดตตัวเลือกสกุลเงินใน currencySelector
+
 
 async function updateBeerPrices() {
   displayBeers();
@@ -163,3 +181,4 @@ async function updateBeerPrices() {
 
 fetchBeers();
 fetchCurrencyRates();
+// เรียกฟังก์ชัน fetchBeers และ fetchCurrencyRates เพื่อดึงข้อมูลเบื้องต้นและเริ่มต้นแสดงผล
